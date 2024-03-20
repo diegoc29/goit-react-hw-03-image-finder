@@ -3,6 +3,7 @@ import ImageGallery from './ImageGallery';
 import Button from './Button';
 import Loader from './Loader';
 import Modal from './Modal';
+import Searchbar from './Searchbar';
 
 const ImageFinder = ({ query, images, isLoading, currentPage, largeImageUrl, showModal, onSubmit, onLoadMore, onImageClick, onCloseModal }) => {
   return (
