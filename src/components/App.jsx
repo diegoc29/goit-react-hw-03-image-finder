@@ -5,8 +5,6 @@ import Button from './Button';
 import Loader from './Loader';
 import Modal from './Modal'; 
 
-const apiKey = '41188201-214d0d91838319eb1191e729e';
-
 function App() {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
@@ -14,6 +12,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [largeImageUrl, setLargeImageUrl] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const apiKey = '41188201-214d0d91838319eb1191e729e'; 
 
   const fetchImages = async () => {
     setIsLoading(true);
@@ -22,7 +21,12 @@ function App() {
         `https://pixabay.com/api/?q=${query}&page=${currentPage}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`
       );
       const data = await response.json();
-      setImages(prevImages => [...prevImages, ...data.hits]);
+      const processedImages = data.hits.map(image => ({
+        id: image.id,
+        webformatURL: image.webformatURL,
+        largeImageURL: image.largeImageURL
+      }));
+      setImages(prevImages => [...prevImages, ...processedImages]);
     } catch (error) {
       console.error('Error fetching images:', error);
     } finally {
